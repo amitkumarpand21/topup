@@ -1,0 +1,102 @@
+<b:template xmlns:b="http://www.google.com/2005/gml/b">
+
+  <b:includable id="main">
+    <b:section id="mainSection" class="main-section">
+      <b:widget id="TopUpForm" type="HTML" version="2">
+        <b:widget-settings>
+          <b:widget-setting name="content"><![CDATA[
+            <div class="topup-box">
+              <h1>🎮 Gaming Top-Up</h1>
+              <form id="topupForm">
+                <label for="game">Select Game</label>
+                <select id="game">
+                  <option value="Free Fire">Free Fire</option>
+                </select>
+
+                <label for="userId">Game ID</label>
+                <input type="text" id="userId" />
+
+                <label for="amount">Select Diamond Amount</label>
+                <select id="amount">
+                  <option>100💎 – Rs. 85</option>
+                  <option>200💎 – Rs. 170</option>
+                  <option>310💎 – Rs. 255</option>
+                  <option>520💎 – Rs. 425</option>
+                </select>
+
+                <label for="payment">Payment Method</label>
+                <select id="payment">
+                  <option>Khalti</option>
+                  <option>eSewa</option>
+                  <option>Bank Transfer</option>
+                </select>
+
+                <label for="contact">Your Contact Number</label>
+                <input type="text" id="contact" />
+
+                <button type="button" onclick="submitOrder()">Place Order via WhatsApp</button>
+              </form>
+            </div>
+
+            <script><![CDATA[
+              function submitOrder() {
+                var game = document.getElementById('game').value;
+                var id = document.getElementById('userId').value;
+                var amount = document.getElementById('amount').value;
+                var pay = document.getElementById('payment').value;
+                var contact = document.getElementById('contact').value;
+
+                var msg = "🎮 *Gaming Top-Up Order*\n\nGame: " + game + "\nGame ID: " + id + "\nTop-Up: " + amount + "\nPayment Method: " + pay + "\nContact: " + contact + "";
+
+                var phone = "9813052874"; // Replace with your WhatsApp number
+                window.open("https://wa.me/977" + phone + "?text=" + encodeURIComponent(msg), "_blank");
+              }
+            ]]></script>
+          ]]></b:widget-setting>
+        </b:widget-settings>
+      </b:widget>
+    </b:section>
+  </b:includable>
+
+  <b:skin><![CDATA[
+    body {
+      background: #121212;
+      font-family: sans-serif;
+      color: #fff;
+      padding: 20px;
+    }
+    .topup-box {
+      max-width: 500px;
+      margin: auto;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: none;
+      background: #2c2c2c;
+      color: #fff;
+    }
+    button {
+      margin-top: 15px;
+      background: #00ffea;
+      color: #000;
+      font-weight: bold;
+      padding: 12px;
+      border: none;
+      width: 100%;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  ]]></b:skin>
+
+</b:template>

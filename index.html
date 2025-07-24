@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming Top-Up Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h2>🎮 Admin Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+            <div id="loginError" class="error-message"></div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="dashboard" style="display: none;">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>🎮 Gaming Top-Up Admin</h1>
+                <div class="header-actions">
+                    <span id="adminName" class="admin-name"></span>
+                    <button id="logoutBtn" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="sidebar">
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link active" data-section="overview">
+                    <i class="fas fa-chart-dashboard"></i> Overview
+                </a></li>
+                <li><a href="#" class="nav-link" data-section="orders">
+                    <i class="fas fa-shopping-cart"></i> Orders
+                </a></li>
+                <li><a href="#" class="nav-link" data-section="analytics">
+                    <i class="fas fa-chart-bar"></i> Analytics
+                </a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Overview Section -->
+            <section id="overview" class="content-section active">
+                <h2>Dashboard Overview</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalOrders">0</h3>
+                            <p>Total Orders</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon pending">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="pendingOrders">0</h3>
+                            <p>Pending Orders</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon completed">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="completedOrders">0</h3>
+                            <p>Completed Orders</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon recent">
+                            <i class="fas fa-calendar-week"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="recentOrders">0</h3>
+                            <p>Recent Orders (7 days)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Orders by Game</h3>
+                        <div id="gamesChart" class="chart-container"></div>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Payment Methods</h3>
+                        <div id="paymentChart" class="chart-container"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Orders Section -->
+            <section id="orders" class="content-section">
+                <div class="section-header">
+                    <h2>Order Management</h2>
+                    <div class="section-actions">
+                        <select id="statusFilter">
+                            <option value="">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                        <select id="gameFilter">
+                            <option value="">All Games</option>
+                            <option value="Free Fire">Free Fire</option>
+                        </select>
+                        <button id="refreshOrders" class="btn-primary">
+                            <i class="fas fa-refresh"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <div class="orders-table-container">
+                    <table id="ordersTable" class="orders-table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="selectAll"></th>
+                                <th>ID</th>
+                                <th>Game</th>
+                                <th>Game ID</th>
+                                <th>Amount</th>
+                                <th>Payment</th>
+                                <th>Contact</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <!-- Orders will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    <button id="prevPage" class="btn-secondary">Previous</button>
+                    <span id="pageInfo">Page 1 of 1</span>
+                    <button id="nextPage" class="btn-secondary">Next</button>
+                </div>
+
+                <div class="bulk-actions">
+                    <button id="bulkComplete" class="btn-success">Mark as Completed</button>
+                    <button id="bulkCancel" class="btn-danger">Mark as Cancelled</button>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section id="analytics" class="content-section">
+                <h2>Analytics</h2>
+                <div class="analytics-content">
+                    <p>Advanced analytics features coming soon...</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Order Details</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="orderDetails"></div>
+                <div class="form-group">
+                    <label for="orderStatus">Status</label>
+                    <select id="orderStatus">
+                        <option value="pending">Pending</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="orderNotes">Notes</label>
+                    <textarea id="orderNotes" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="saveOrder" class="btn-primary">Save Changes</button>
+                <button class="btn-secondary close">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
